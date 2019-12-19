@@ -149,6 +149,7 @@ window.addEventListener('load', async () =>{
 
 
   $('#root').hide();
+  $('#register').fadeIn()
   
   client = await Ae.Aepp();
 
