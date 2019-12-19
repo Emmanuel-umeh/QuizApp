@@ -112,6 +112,8 @@ payable contract Quiz =
 
 const contractAddress = 'ct_DpsjZEfxKRUo7DZ8nPCXtJWtT49GY1roJSDzfRcrnPgqaXnge';
 
+UserArray =  []
+
 var client = null;
 
 async function callStatic(func, args) {
@@ -153,7 +155,37 @@ window.addEventListener('load', async () =>{
   
   client = await Ae.Aepp();
 
+  
 } )
+
+const name = ($('#name').val())
+const mail = ($('#mail').val())
+const password = ($('#verifyPassword').val())
+console.log(name)
+console.log(mail)
+
+$('#submitButton').click(async () =>{
+  await contractCall('adduser', [name,mail,password], 0).catch(e => console.error(e));
+
+  UserArray.push({
+    name : name,
+    mail : mail,
+    password : password
+  })
+  console.log("Added successsfully")
+  console.log(UserArray.length())
+
+  await contractCall('takeCourse', [UserArray.length()], 0).catch(e => console.error(e));
+
+
+ 
+
+  $('#register').hide()
+  $('#root').fadeIn();
+
+
+} )
+
 
 form.addEventListener('submit', e => {
   e.preventDefault();
@@ -181,5 +213,10 @@ form.addEventListener('submit', e => {
       output++;
     }
   }, 10);
+
+
+  await contractCall('updateScore', [UserArray.length(),score], 0)
+  console.log("score updated successfully")
+
 
 });
