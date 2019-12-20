@@ -150,7 +150,7 @@ window.addEventListener('load', async () =>{
 
 
 
-  $('#root').hide();
+  $('#root').fadeOut();
   $('#register').fadeIn();
   client = await Ae.Aepp();
 
@@ -179,7 +179,7 @@ $('#submitButton').click(async () =>{
 
  
 
-  $('#register').hide()
+  $('#register').fadeOut()
   $('#root').fadeIn();
 
 
