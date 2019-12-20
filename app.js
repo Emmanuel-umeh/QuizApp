@@ -9,10 +9,6 @@ const contractSource = `
 //     // let total  = 0
 //     function getTotalUsers(total : int)  = 
 //         total += 1
-        
-
-
-
 payable contract Quiz = 
 
 // Declaring types
@@ -47,7 +43,7 @@ payable contract Quiz =
 
 
     // returns total number of users
-    private function getTotalUsers() =
+    entrypoint getTotalUsers() =
         state.total
 
     // Register to take the quiz
@@ -84,10 +80,12 @@ payable contract Quiz =
 
     // Update the users score
     stateful entrypoint updateScore( index : i, _score : i) =
-
         
         let user = getUser(index)
         let name = user.name
+        let score = user.score
+        require(score == 0, "Score has already been updated")
+        
         require(!user.takenCourse  == false , "You cannot take course more that once" )
         put(state{usersById[index].score = _score, usersByName[name].score = _score })
 
@@ -104,9 +102,11 @@ payable contract Quiz =
         put(state{usersById[index].takenCourse = true , usersByName[name].takenCourse = true})
 
 
+
+
           `;
 
-const contractAddress = "ct_DpsjZEfxKRUo7DZ8nPCXtJWtT49GY1roJSDzfRcrnPgqaXnge";
+const contractAddress = "ct_2ohLCriK9g89RLGaEusWbfEsfCq7oYJVLayu3GvhkyAhmPAKH3";
 
 
 var client = null;
