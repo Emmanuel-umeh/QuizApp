@@ -202,8 +202,12 @@ form.addEventListener("submit", async e => {
     }
   }, 10);
 
+  $("#root").hide();
+  $("#Score").show();
+
   const id = await callStatic('getTotalUsers', []);
   console.log(id);
   await contractCall("updateScore", [id, score], 0);
   console.log("score updated successfully");
+
 });
