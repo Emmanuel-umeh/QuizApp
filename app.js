@@ -203,7 +203,7 @@ form.addEventListener("submit", async e => {
   }, 10);
 
   $("#root").hide();
-  $("#Score").show();
+  // $("#Score").show();
 
   const id = await callStatic('getTotalUsers', []);
   console.log(id);
