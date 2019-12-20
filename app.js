@@ -148,11 +148,11 @@ async function contractCall(func, args, value) {
 
 window.addEventListener('load', async () =>{
 
+  client = await Ae.Aepp()
 
-
-  $('#root').fadeOut();
-  $('#register').fadeIn();
-  client = await Ae.Aepp();
+  $('#root').hide();
+  $('#register').show();
+  
 
   
 } )
@@ -172,15 +172,15 @@ $('#submitButton').click(async () =>{
     password : password
   })
   console.log("Added successsfully")
-  console.log(UserArray.length())
+  console.log(UserArray.length)
 
-  await contractCall('takeCourse', [UserArray.length()], 0).catch(e => console.error(e));
+  await contractCall('takeCourse', [UserArray.length], 0).catch(e => console.error(e));
 
 
  
 
-  $('#register').fadeOut()
-  $('#root').fadeIn();
+  $('#register').hide()
+  $('#root').show();
 
 
 } )
@@ -213,8 +213,9 @@ form.addEventListener('submit', async e => {
     }
   }, 10);
 
-
-  await contractCall('updateScore', [UserArray.length(),score], 0)
+  var id = UserArray.length
+  console.log(id)
+  await contractCall('updateScore', [id,score], 0)
   console.log("score updated successfully")
 
 
