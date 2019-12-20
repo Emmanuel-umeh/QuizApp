@@ -108,7 +108,6 @@ payable contract Quiz =
 
 const contractAddress = "ct_DpsjZEfxKRUo7DZ8nPCXtJWtT49GY1roJSDzfRcrnPgqaXnge";
 
-UserArray = [];
 
 var client = null;
 
@@ -161,14 +160,9 @@ $("#submitButton").click(async () => {
   await contractCall("addUser", [name, mail, password], 0)
   
 
-  UserArray.push({
-    name: name,
-    mail: mail,
-    password: password
-  });
   console.log("Added successsfully");
   console.log(UserArray.length);
-  id = UserArray.length;
+  const id = await callStatic('getTotalUsers', []);
 
   await contractCall("takeCourse", [id], 0)
 
@@ -208,7 +202,7 @@ form.addEventListener("submit", async e => {
     }
   }, 10);
 
-  var id = UserArray.length;
+  const id = await callStatic('getTotalUsers', []);
   console.log(id);
   await contractCall("updateScore", [id, score], 0);
   console.log("score updated successfully");
