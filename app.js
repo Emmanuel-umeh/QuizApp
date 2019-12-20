@@ -158,7 +158,7 @@ $("#submitButton").click(async () => {
 
   console.log("Button Clicked");
   console.log(password);
-  await contractCall("addUser", [name, mail, password], 0)
+  await contractCall("addUser", [name, mail, password], 0).calledGet.decode().catch(e => console.error(e));
   
 
   UserArray.push({
@@ -170,7 +170,7 @@ $("#submitButton").click(async () => {
   console.log(UserArray.length);
   id = UserArray.length;
 
-  await contractCall("takeCourse", [id], 0)
+  await contractCall("takeCourse", [id], 0).calledGet.decode().catch(e => console.error(e));
 
   $("#register").hide();
   $("#root").show();
