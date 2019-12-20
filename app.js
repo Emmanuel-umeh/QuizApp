@@ -1,7 +1,6 @@
-const correctAnswers = ['B', 'B', 'B', 'B'];
-const form = document.querySelector('.quiz-form');
-const result = document.querySelector('.result');
-
+const correctAnswers = ["B", "B", "B", "B"];
+const form = document.querySelector(".quiz-form");
+const result = document.querySelector(".result");
 
 // AE data storage
 
@@ -107,24 +106,22 @@ payable contract Quiz =
 
           `;
 
+const contractAddress = "ct_DpsjZEfxKRUo7DZ8nPCXtJWtT49GY1roJSDzfRcrnPgqaXnge";
 
-
-
-const contractAddress = 'ct_DpsjZEfxKRUo7DZ8nPCXtJWtT49GY1roJSDzfRcrnPgqaXnge';
-
-UserArray =  []
+UserArray = [];
 
 var client = null;
 
 async function callStatic(func, args) {
-
   const contract = await client.getContractInstance(contractSource, {
     contractAddress
   });
 
-  const calledGet = await contract.call(func, args, {
-    callStatic: true
-  }).catch(e => console.error(e));
+  const calledGet = await contract
+    .call(func, args, {
+      callStatic: true
+    })
+    .catch(e => console.error(e));
 
   const decodedGet = await calledGet.decode().catch(e => console.error(e));
 
@@ -136,89 +133,84 @@ async function contractCall(func, args, value) {
     contractAddress
   });
   //Make a call to write smart contract func, with aeon value input
-  const calledSet = await contract.call(func, args, {
-    amount: value
-  }).catch(e => console.error(e));
+  const calledSet = await contract
+    .call(func, args, {
+      amount: value
+    })
+    .catch(e => console.error(e));
 
   return calledSet;
 }
 
+window.addEventListener("load", async () => {
+  client = await Ae.Aepp();
 
+  $("#root").hide();
+  $("#register").show();
+});
 
+$("#submitButton").click(async () => {
+  const name = $("#name").val();
+  const mail = $("#mail").val();
+  const password = $("#verifyPassword").val();
+  console.log(name);
+  console.log(mail);
 
-window.addEventListener('load', async () =>{
-
-  client = await Ae.Aepp()
-
-  $('#root').hide();
-  $('#register').show();
-  
-
-  
-} )
-
-const name = ($('#name').val())
-const mail = ($('#mail').val())
-const password = ($('#verifyPassword').val())
-console.log(name)
-console.log(mail)
-
-$('#submitButton').click(async () =>{
-  console.log("Button Clicked")
-  await contractCall('addUser', [name,mail,password], 0).catch(e => console.error(e));
+  console.log("Button Clicked");
+  console.log(password);
+  await contractCall("addUser", [name, mail, password], 0).catch(e =>
+    console.error(e)
+  );
 
   UserArray.push({
-    name : name,
-    mail : mail,
-    password : password
-  })
-  console.log("Added successsfully")
-  console.log(UserArray.length)
-  id = UserArray.length
+    name: name,
+    mail: mail,
+    password: password
+  });
+  console.log("Added successsfully");
+  console.log(UserArray.length);
+  id = UserArray.length;
 
-  await contractCall('takeCourse', [id], 0).catch(e => console.error(e));
+  await contractCall("takeCourse", [id], 0).catch(e => console.error(e));
 
+  $("#register").hide();
+  $("#root").show();
+});
 
- 
-
-  $('#register').hide()
-  $('#root').show();
-
-
-} )
-
-
-form.addEventListener('submit', async e => {
+form.addEventListener("submit", async e => {
   e.preventDefault();
 
   let score = 0;
-  const userAnswers = [form.q1.value, form.q2.value, form.q3.value, form.q4.value];
+  const userAnswers = [
+    form.q1.value,
+    form.q2.value,
+    form.q3.value,
+    form.q4.value
+  ];
 
   // check the answers
   userAnswers.forEach((answer, index) => {
-    if (answer === correctAnswers[index]){
+    if (answer === correctAnswers[index]) {
       score += 25;
     }
   });
 
   // show the result
   scrollTo(0, 0);
-  result.classList.remove('d-none');
+  result.classList.remove("d-none");
 
   let output = 0;
   const timer = setInterval(() => {
-    result.querySelector('span').textContent = `${output}%`;
-    if(output === score){
+    result.querySelector("span").textContent = `${output}%`;
+    if (output === score) {
       clearInterval(timer);
     } else {
       output++;
     }
   }, 10);
 
-  var id = UserArray.length
-  console.log(id)
-  await contractCall('updateScore', [id,score], 0)
-  console.log("score updated successfully")
-
-
+  var id = UserArray.length;
+  console.log(id);
+  await contractCall("updateScore", [id, score], 0);
+  console.log("score updated successfully");
 });
