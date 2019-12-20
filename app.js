@@ -187,7 +187,7 @@ $('#submitButton').click(async () =>{
 } )
 
 
-form.addEventListener('submit', e => {
+form.addEventListener('submit', async e => {
   e.preventDefault();
 
   let score = 0;
