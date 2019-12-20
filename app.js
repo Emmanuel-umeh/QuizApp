@@ -164,7 +164,7 @@ console.log(name)
 console.log(mail)
 
 $('#submitButton').click(async () =>{
-  await contractCall('adduser', [name,mail,password], 0).catch(e => console.error(e));
+  await contractCall('addUser', [name,mail,password], 0).catch(e => console.error(e));
 
   UserArray.push({
     name : name,
