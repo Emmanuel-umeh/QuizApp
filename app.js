@@ -174,8 +174,9 @@ $('#submitButton').click(async () =>{
   })
   console.log("Added successsfully")
   console.log(UserArray.length)
+  id = UserArray.length
 
-  await contractCall('takeCourse', [UserArray.length], 0).catch(e => console.error(e));
+  await contractCall('takeCourse', [id], 0).catch(e => console.error(e));
 
 
  
