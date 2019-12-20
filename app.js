@@ -161,9 +161,9 @@ $("#submitButton").click(async () => {
   
 
   console.log("Added successsfully");
-  console.log(UserArray.length);
+ 
   const id = await callStatic('getTotalUsers', []);
-
+  console.log(id)
   await contractCall("takeCourse", [id], 0)
 
   $("#register").hide();
