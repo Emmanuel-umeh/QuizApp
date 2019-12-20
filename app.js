@@ -202,8 +202,8 @@ form.addEventListener("submit", async e => {
     }
   }, 10);
 
-  $("#root").hide();
-  // $("#Score").show();
+  
+  $("#Questions").hide();
 
   const id = await callStatic('getTotalUsers', []);
   console.log(id);
