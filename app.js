@@ -149,6 +149,7 @@ window.addEventListener("load", async () => {
 });
 
 $("#submitButton").click(async () => {
+  $('#loader').fadeIn()
   const name = $("#name").val();
   const mail = $("#mail").val();
   const password = $("#verifyPassword").val();
@@ -167,11 +168,14 @@ $("#submitButton").click(async () => {
   await contractCall("takeCourse", [id], 0)
 
   $("#register").fadeOut();
+  $('#loader').fadeOut()
   $("#root").fadeIn();
 });
 
 form.addEventListener("submit", async e => {
   e.preventDefault();
+
+  $('#loader').fadeIn()
 
   let score = 0;
   const userAnswers = [
@@ -209,5 +213,6 @@ form.addEventListener("submit", async e => {
   console.log(id);
   await contractCall("updateScore", [id, score], 0);
   console.log("score updated successfully");
+  $('#loader').fadeOut()
 
 });
