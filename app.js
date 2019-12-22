@@ -144,8 +144,8 @@ async function contractCall(func, args, value) {
 window.addEventListener("load", async () => {
   client = await Ae.Aepp();
 
-  $("#root").hide();
-  $("#register").show();
+  $("#root").fadeOut();
+  $("#register").fadeIn();
 });
 
 $("#submitButton").click(async () => {
@@ -166,8 +166,8 @@ $("#submitButton").click(async () => {
   console.log(id)
   await contractCall("takeCourse", [id], 0)
 
-  $("#register").hide();
-  $("#root").show();
+  $("#register").fadeOut();
+  $("#root").fadeIn();
 });
 
 form.addEventListener("submit", async e => {
@@ -203,7 +203,7 @@ form.addEventListener("submit", async e => {
   }, 10);
 
   
-  $("#Questions").hide();
+  $("#Questions").fadeOut();
 
   const id = await callStatic('getTotalUsers', []);
   console.log(id);
