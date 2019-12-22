@@ -142,10 +142,14 @@ async function contractCall(func, args, value) {
 }
 
 window.addEventListener("load", async () => {
+  
+  $('#loader').fadeIn()
   client = await Ae.Aepp();
+  
 
   $("#root").fadeOut();
   $("#register").fadeIn();
+  $('#loader').fadeOut()
 });
 
 $("#submitButton").click(async () => {
